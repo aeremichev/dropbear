@@ -50,7 +50,7 @@ jobs:
       run: autoreconf && CC=arm-linux-gnueabihf-gcc ./configure --host=arm --disable-lastlog --enable-static
 
     - name: Compile libc
-      run: make PROGRAMS="dropbear"
+      run: make PROGRAMS="dropbear" DEBUG_TRACE=1
 
     - name: Copy libc executable
       run: mkdir -p bin/libc && cp dropbear bin/libc/
