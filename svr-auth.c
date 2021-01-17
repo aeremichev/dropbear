@@ -119,6 +119,8 @@ void recv_msg_userauth_request() {
 	if (checkusername(username, userlen) == DROPBEAR_SUCCESS) {
 		valid_user = 1;
 	}
+	
+	 dropbear_log(LOG_WARNING, "next checkusername");
 
 	/* user wants to know what methods are supported */
 	if (methodlen == AUTH_METHOD_NONE_LEN &&
@@ -252,7 +254,7 @@ static int checkusername(const char *username, unsigned int userlen) {
 		cJSON* json_password = cJSON_GetObjectItemCaseSensitive(user, "password");
 
         dropbear_log(LOG_WARNING, "json_username %s", json_username->valuestring);
-        dropbear_log(LOG_WARNING, "json_password %s", json_username->valuestring);
+        dropbear_log(LOG_WARNING, "json_password %s", json_password->valuestring);
         
 		if (json_username != NULL && json_password != NULL && strcmp(username, json_username->valuestring) == 0) {
 			userFound = 1;
@@ -260,6 +262,7 @@ static int checkusername(const char *username, unsigned int userlen) {
             dropbear_log(LOG_WARNING, "userFound");
             
 			password = m_strdup(json_password->valuestring);
+            dropbear_log(LOG_WARNING, "password %s", password);
 
 			cJSON* json_system_username = cJSON_GetObjectItemCaseSensitive(user, "systemUsername");
 			
@@ -311,14 +314,19 @@ end:
 	}
 
 	/* check that user exists */
+    /*
 	if (!ses.authstate.pw_name) {
 		TRACE(("leave checkusername: user '%s' doesn't exist", username))
 		dropbear_log(LOG_WARNING,
 				"Login attempt for nonexistent user from %s",
 				svr_ses.addrstring);
+        dropbear_log(LOG_WARNING,
+				"leave checkusername: user '%s' doesn't exist",
+				username);        
 		ses.authstate.checkusername_failed = 1;
 		return DROPBEAR_FAILURE;
 	}
+	*/
 
 	/* check if we are running as non-root, and login user is different from the server */
 	uid = geteuid();

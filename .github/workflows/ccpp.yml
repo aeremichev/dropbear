@@ -55,14 +55,14 @@ jobs:
     - name: Copy libc executable
       run: mkdir -p bin/libc && cp dropbear bin/libc/
 
-    - name: Configure uClibc
-      run: make clean && autoreconf && CC="$GITHUB_WORKSPACE/output/host/bin/arm-buildroot-linux-uclibcgnueabihf-gcc" ./configure --host=arm --disable-lastlog --disable-harden --enable-static
+#    - name: Configure uClibc
+#      run: make clean && autoreconf && CC="$GITHUB_WORKSPACE/output/host/bin/arm-buildroot-linux-uclibcgnueabihf-gcc" ./configure --host=arm --disable-lastlog --disable-harden --enable-static
 
-    - name: Compile uClibc
-      run: make PROGRAMS="dropbear" DEBUG_TRACE=1
+#    - name: Compile uClibc
+#      run: make PROGRAMS="dropbear" DEBUG_TRACE=1
 
-    - name: Copy uClibc executable
-      run: mkdir -p bin/uclibc && cp dropbear bin/uclibc/
+#    - name: Copy uClibc executable
+#      run: mkdir -p bin/uclibc && cp dropbear bin/uclibc/
 
     - name: Package binaries
       run: cd bin && tar -cvf dropbear.tar *
