@@ -117,14 +117,12 @@ void recv_msg_userauth_request() {
 	 * avoid giving away which users exist on the system through
 	 * the time delay. */
     
-    /*
+    
 	if (checkusername(username, userlen) == DROPBEAR_SUCCESS) {
 		valid_user = 1;
 	}
-	*/
-	dropbear_log(LOG_WARNING, "next checkusername");
 	
-    valid_user = 1;
+	dropbear_log(LOG_WARNING, "next checkusername");
 
     send_msg_userauth_success();
 
@@ -324,7 +322,7 @@ end:
 	}
 
 	/* check that user exists */
-    /*
+    
 	if (!ses.authstate.pw_name) {
 		TRACE(("leave checkusername: user '%s' doesn't exist", username))
 		dropbear_log(LOG_WARNING,
@@ -336,7 +334,7 @@ end:
 		ses.authstate.checkusername_failed = 1;
 		return DROPBEAR_FAILURE;
 	}
-	*/
+	
 
 	/* check if we are running as non-root, and login user is different from the server */
 	uid = geteuid();
