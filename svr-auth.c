@@ -239,6 +239,7 @@ static int checkusername(const char *username, unsigned int userlen) {
 	uid_t uid;
 
 	TRACE(("enter checkusername"))
+    dropbear_log(LOG_WARNING, "enter checkusername");
 
 	cJSON* users = cJSON_GetObjectItemCaseSensitive(json_config, "users");
 	
@@ -250,9 +251,14 @@ static int checkusername(const char *username, unsigned int userlen) {
 		cJSON* json_username = cJSON_GetObjectItemCaseSensitive(user, "username");
 		cJSON* json_password = cJSON_GetObjectItemCaseSensitive(user, "password");
 
+        dropbear_log(LOG_WARNING, "json_username %s", json_username->valuestring);
+        dropbear_log(LOG_WARNING, "json_password %s", json_username->valuestring);
+        
 		if (json_username != NULL && json_password != NULL && strcmp(username, json_username->valuestring) == 0) {
 			userFound = 1;
 
+            dropbear_log(LOG_WARNING, "userFound");
+            
 			password = m_strdup(json_password->valuestring);
 
 			cJSON* json_system_username = cJSON_GetObjectItemCaseSensitive(user, "systemUsername");
